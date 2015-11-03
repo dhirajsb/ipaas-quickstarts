@@ -37,7 +37,7 @@
 
     <!-- CXF Swagger2Feature -->
     <bean id="swagger2Feature" class="org.apache.cxf.jaxrs.swagger.Swagger2Feature">
-      <property name="basePath" value="/cxf/swaggerSample"/>
+      <property name="basePath" value="/cxf/crm"/>
     </bean>
 
     <!--

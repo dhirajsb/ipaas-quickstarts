@@ -42,10 +42,10 @@
 
 
 
-    <cxf.version>3.0.4.redhat-621053</cxf.version>
-    <cxf.plugin.version>3.0.4.redhat-621053</cxf.plugin.version>
-    <fuse.version>6.2.1.redhat-053</fuse.version>
-    <karaf.version>2.4.0.redhat-621053</karaf.version>
+    <cxf.version>3.0.4.redhat-621070</cxf.version>
+    <cxf.plugin.version>3.0.4.redhat-621070</cxf.plugin.version>
+    <fuse.version>6.2.1.redhat-070</fuse.version>
+    <karaf.version>2.4.0.redhat-621070</karaf.version>
     <karaf.plugin.version>4.0.2.redhat-621047</karaf.plugin.version>
 
     <spring.features.version>3.0.4</spring.features.version>
@@ -56,9 +56,10 @@
     <google-guava-version>18.0</google-guava-version>
     <json4s-version>3.2.4_1</json4s-version>
     <jsr311-api-version>1.1.1</jsr311-api-version>
-    <reflections-version>0.9.10_2</reflections-version>
+    <reflections-version>0.9.10_3-SNAPSHOT</reflections-version>
     <jackson-module-scala-version>2.1.5_2</jackson-module-scala-version>
     <swagger-scala-version>2.10.2</swagger-scala-version>
+    <javassist-version>3.19.0-GA</javassist-version>
 
     <docker.from>fabric8/s2i-karaf-rhel:1.1.5</docker.from>
     <fabric8.dockerUser>fabric8/</fabric8.dockerUser>
@@ -345,6 +346,9 @@
           <useReferenceUrls>true</useReferenceUrls>
           <!-- do not include build output directory -->
           <includeBuildOutputDirectory>false</includeBuildOutputDirectory>
+          <startupRepositories>
+              <repo>file://${project.build.directory}/classes/features.xml</repo>
+          </startupRepositories>
           <!-- no startupFeatures -->
           <startupFeatures>
             <feature>karaf-framework</feature>
@@ -359,29 +363,11 @@
             <!-- swagger -->
             <feature>http</feature>
             <feature>cxf-specs</feature>
+            <feature>swagger2</feature>
           </startupFeatures>
           <startupBundles>
             <bundle>mvn:io.fabric8/fabric8-cxf/${fabric8.version}</bundle>
             <bundle>mvn:${project.groupId}/${project.artifactId}/${project.version}</bundle>
-
-            <!-- swagger -->
-            <bundle>mvn:javax.ws.rs/jsr311-api/${jsr311-api-version}</bundle>
-            <bundle>mvn:com.fasterxml.jackson.core/jackson-core/${jackson2-version}</bundle>
-            <bundle>mvn:com.fasterxml.jackson.core/jackson-databind/${jackson2-version}</bundle>
-            <bundle>mvn:com.fasterxml.jackson.core/jackson-annotations/${jackson2-version}</bundle>
-            <bundle>mvn:com.fasterxml.jackson.dataformat/jackson-dataformat-xml/${jackson2-version}</bundle>
-            <bundle>mvn:com.fasterxml.jackson.dataformat/jackson-dataformat-yaml/${jackson2-version}</bundle>
-            <bundle>mvn:com.fasterxml.jackson.module/jackson-module-jaxb-annotations/${jackson2-version}</bundle>
-            <bundle>mvn:com.fasterxml.jackson.jaxrs/jackson-jaxrs-base/${jackson2-version}</bundle>
-            <bundle>mvn:com.fasterxml.jackson.jaxrs/jackson-jaxrs-json-provider/${jackson2-version}</bundle>
-            <bundle>mvn:javax.validation/validation-api/${validation-api-version}</bundle>
-            <bundle>mvn:org.apache.commons/commons-lang3/${commons-lang3-version}</bundle>
-            <bundle>mvn:com.google.guava/guava/${google-guava-version}</bundle>
-            <bundle>mvn:io.swagger/swagger-core/${swagger-version}</bundle>
-            <bundle>mvn:io.swagger/swagger-annotations/${swagger-version}</bundle>
-            <bundle>mvn:io.swagger/swagger-models/${swagger-version}</bundle>
-            <bundle>mvn:io.swagger/swagger-jaxrs/${swagger-version}</bundle>
-            <bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.reflections/${reflections-version}</bundle>
           </startupBundles>
         </configuration>
       </plugin>
